@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Todo from "./Todo";
+import "./todoApp.css";
 
 const TodoApp = () => {
   const [title, setTitle] = useState("");
@@ -20,7 +21,10 @@ const TodoApp = () => {
     };
     const temp = [...todos];
     temp.unshift(newTodo);
+
     setTodos(temp);
+
+    setTitle("");
   }
 
   function handleUpdate(id, value) {
@@ -30,20 +34,35 @@ const TodoApp = () => {
     setTodos(temp);
   }
 
+  function handleDelete(id) {
+    const temp = todos.filter((item) => item.id !== id);
+    setTodos(temp);
+  }
+
   return (
     <div className="todoContainer">
       <form className="todoCreateForm" onSubmit={handleSubmit}>
-        <input type="text" placeholder="" onChange={handleChange} />
+        <input
+          type="text"
+          className="todoInput"
+          placeholder="Escribe un tarea"
+          onChange={handleChange}
+        />
         <input
           onClick={handleSubmit}
           type="submit"
-          value="create todo"
-          className="buttonCreate"
+          value="+"
+          className="todoInputBtn"
         />
       </form>
       <div className="todosContainer">
         {todos.map((item) => (
-          <Todo key={item.id} item={item} onUpdate={handleUpdate} />
+          <Todo
+            key={item.id}
+            item={item}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
         ))}
       </div>
     </div>

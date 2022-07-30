@@ -1,6 +1,7 @@
+import "./todo.css";
 import { useState } from "react";
 
-export default function Todo({ item, onUpdate }) {
+export default function Todo({ item, onUpdate, onDelete }) {
   const [isEdit, setIsEdit] = useState(false);
 
   function FormEdit() {
@@ -29,7 +30,7 @@ export default function Todo({ item, onUpdate }) {
           value={newValue}
         />
         <button className="button" onClick={handleClickUpdate}>
-          Actualizar
+          <i class="fa-solid fa-check"></i>
         </button>
       </form>
     );
@@ -38,8 +39,14 @@ export default function Todo({ item, onUpdate }) {
     return (
       <div className="todoInfo">
         {item.title}
-        <button onClick={() => setIsEdit(true)}>Editar</button>
-        <button>Eliminar</button>
+        <div className="todoBoxBtn">
+          <button onClick={() => setIsEdit(true)}>
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button onClick={() => onDelete(item.id)}>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </div>
     );
   }
