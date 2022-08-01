@@ -13,18 +13,22 @@ const TodoApp = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    const newTodo = {
-      id: crypto.randomUUID(),
-      title: title,
-      complete: false,
-    };
-    const temp = [...todos];
-    temp.unshift(newTodo);
-
-    setTodos(temp);
-
-    setTitle("");
+    
+    if (title.trim() !== '') {
+      const newTodo = {
+        id: crypto.randomUUID(),
+        title: title,
+        complete: false,
+      };
+      const temp = [...todos];
+      temp.unshift(newTodo);
+  
+      setTodos(temp);
+  
+      setTitle("");
+    } else { 
+      alert("Ingresar un valor válido")
+    }
   }
 
   function handleUpdate(id, value) {
@@ -47,6 +51,7 @@ const TodoApp = () => {
           className="todoInput"
           placeholder="Escribe un tarea"
           onChange={handleChange}
+          value={title}
         />
         <input
           onClick={handleSubmit}
